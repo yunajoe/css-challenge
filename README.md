@@ -2,6 +2,7 @@
 
 - [참고한 링크](https://100dayscss.com/)
 
-|  #  | Project          | Live Demo     |
-| :-: | ---------------- | ------------- |
-| 01  | [100 Days CSS]() | [Live Demo]() |
+|  #  | Project | Live Demo |
+| :-: | ------- | --------- |
+
+| 01 | [100 Days CSS]() | [Live Demo](https://codepen.io/roydigerhund/pen/JGmvaE) |
