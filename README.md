@@ -3,9 +3,9 @@
 |  #  | Project                                                      | Live Demo                                  |
 | :-: | ------------------------------------------------------------ | ------------------------------------------ |
 | 01  | https://github.com/yunajoe/100days-css/tree/main/100days-css | https://codepen.io/roydigerhund/pen/JGmvaE |
-| 02  |                                                              | https://codepen.io/roydigerhund/pen/ZQmbNm |
+| 02  | https://github.com/yunajoe/css-challenge/tree/main/menu-icon | https://codepen.io/roydigerhund/pen/ZQmbNm |
 
-### 창고한 웹 사이트들
+### 참고한 웹 사이트들
 
 - https://100dayscss.com/
 - https://prismic.io/
