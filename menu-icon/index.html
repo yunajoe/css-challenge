@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .frame {
+        position: absolute;
+        background: #3faf82;
+        color: #333;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 400px;
+        font-family: "Open Sans", Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* 클릭하면은 하나로 합쳐진다.  3개의 바가 1개로 된다.
+      시계 반대 방향으로 돌아간다. 그리고나서 하나가 오른쪽으로 분리...
+
+      */
+      .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .bar-container {
+        width: 100%;
+        cursor: pointer;
+        position: relative;
+        /* border: 5px solid blue; */
+      }
+      .bar {
+        border-top: 10px solid #fff;
+        width: 100px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+
+      .four {
+        position: absolute;
+        top: -20%;
+        width: 100px;
+        height: 10px;
+        display: none;
+        transform: rotate(44deg);
+      }
+
+      .fromTopToBottom {
+        animation: fromTopToBottomSlideIn 1s ease-in-out forwards;
+      }
+
+      .fromBottomToTop {
+        animation: fromBottomToTopSlideIn 1s ease-in-out forwards;
+      }
+
+      .rotate45Deg {
+        animation: rotate45DegSlideIn 1s ease-in-out forwards;
+        animation-delay: 1s;
+      }
+
+      .rotate90Deg {
+        animation: rotate90DegSlideIn 2s ease-in-out forwards;
+        animation-delay: 1s;
+      }
+
+      @keyframes fromTopToBottomSlideIn {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(200%);
+          display: none;
+        }
+      }
+
+      @keyframes fromBottomToTopSlideIn {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-200%);
+          display: none;
+        }
+      }
+
+      @keyframes rotate45DegSlideIn {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(45deg);
+        }
+      }
+
+      @keyframes rotate90DegSlideIn {
+        from {
+          display: block;
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(140deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="center">
+        <div class="bar-container">
+          <div class="bar one"></div>
+          <div class="bar two"></div>
+          <div class="bar three"></div>
+          <div class="bar four"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const barContainer = document.querySelector(".bar-container");
+      const barOneContainer = document.querySelector(".bar.one");
+      const barTwoContainer = document.querySelector(".bar.two");
+      const barThreeContainer = document.querySelector(".bar.three");
+      const barFourContainer = document.querySelector(".bar.four");
+      barContainer.addEventListener("click", (e) => {
+        barOneContainer.classList.add("fromTopToBottom");
+        barThreeContainer.classList.add("fromBottomToTop");
+        barTwoContainer.classList.add("rotate45Deg");
+
+        setTimeout(() => {
+          barFourContainer.style.display = "block";
+          barFourContainer.classList.add("rotate90Deg");
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
