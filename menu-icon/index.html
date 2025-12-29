@@ -4,139 +4,174 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
     <style>
-      .frame {
-        position: absolute;
-        background: #3faf82;
-        color: #333;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 400px;
-        height: 400px;
-        font-family: "Open Sans", Helvetica, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+      :root {
+        --animation-move: 40px;
       }
 
-      /* 클릭하면은 하나로 합쳐진다.  3개의 바가 1개로 된다.
-      시계 반대 방향으로 돌아간다. 그리고나서 하나가 오른쪽으로 분리...
-
-      */
-      .center {
+      body {
+        background-color: rgb(63, 175, 130);
+      }
+      .container {
+        width: 400px;
+        height: 400px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
       .bar-container {
-        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
         cursor: pointer;
-        position: relative;
-        /* border: 5px solid blue; */
       }
       .bar {
-        border-top: 10px solid #fff;
-        width: 100px;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        overflow: hidden;
+        width: 100%;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 6px;
+      }
+      /* CSS */
+      .no-animation {
+        animation: none !important;
+        transition: none !important;
       }
 
-      .four {
-        position: absolute;
-        top: -20%;
-        width: 100px;
-        height: 10px;
-        display: none;
-        transform: rotate(44deg);
+      /* active가 없을떄 */
+      .bar.one {
+        animation: rollbackSlideDown 1s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+      }
+      .bar.two {
+        animation: fadeIn 1s cubic-bezier(0.3, 1, 0.7, 1) forwards;
       }
 
-      .fromTopToBottom {
-        animation: fromTopToBottomSlideIn 1s ease-in-out forwards;
+      .bar.three {
+        animation: rollbackSlideUp 1s cubic-bezier(0.3, 1, 0.7, 1) forwards;
       }
 
-      .fromBottomToTop {
-        animation: fromBottomToTopSlideIn 1s ease-in-out forwards;
-      }
-
-      .rotate45Deg {
-        animation: rotate45DegSlideIn 1s ease-in-out forwards;
-        animation-delay: 1s;
-      }
-
-      .rotate90Deg {
-        animation: rotate90DegSlideIn 2s ease-in-out forwards;
-        animation-delay: 1s;
-      }
-
-      @keyframes fromTopToBottomSlideIn {
-        from {
-          transform: translateY(0);
+      /* 원래자리로 돌아오는 animation */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          scale: 0;
         }
-        to {
-          transform: translateY(200%);
-          display: none;
+
+        100% {
+          opacity: 1;
+          scale: 1;
         }
       }
 
-      @keyframes fromBottomToTopSlideIn {
-        from {
-          transform: translateY(0);
+      @keyframes rollbackSlideDown {
+        0% {
+          transform: translate3d(0, var(--animation-move), 0) rotate(45deg);
         }
-        to {
-          transform: translateY(-200%);
-          display: none;
+        50% {
+          transform: translate3d(0, var(--animation-move), 0) rotate(0deg);
         }
-      }
-
-      @keyframes rotate45DegSlideIn {
-        from {
-          transform: rotate(0);
-        }
-        to {
-          transform: rotate(45deg);
+        100% {
+          transform: translate3d(0, 0, 0) rotate(0deg);
         }
       }
 
-      @keyframes rotate90DegSlideIn {
-        from {
-          display: block;
-          transform: rotate(0);
+      @keyframes rollbackSlideUp {
+        0% {
+          transform: translate3d(0, calc(-1 * var(--animation-move)), 0)
+            rotate(135deg);
         }
-        to {
-          transform: rotate(140deg);
+        50% {
+          transform: translate3d(0, calc(-1 * var(--animation-move)), 0)
+            rotate(0deg);
+        }
+        100% {
+          transform: translate3d(0, 0, 0) rotate(0deg);
+        }
+      }
+
+      /* active 했을떄 */
+      .active {
+        & .bar.one {
+          animation: slideDown 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+        }
+        & .bar.two {
+          animation: fadeOut 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+        }
+        & .bar.three {
+          animation: slideUp 0.7s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+        }
+      }
+
+      /* 변경되는  animation  */
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+          scale: 1;
+        }
+        100% {
+          opacity: 0;
+          scale: 0;
+        }
+      }
+
+      @keyframes slideDown {
+        0% {
+          transform: translate3D(0, 0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate3d(0, var(--animation-move), 0) rotate(0deg);
+        }
+        100% {
+          transform: translate3D(0, var(--animation-move), 0) rotate(45deg);
+        }
+      }
+
+      @keyframes slideUp {
+        0% {
+          transform: translate3D(0, 0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate3d(0, calc(-1 * var(--animation-move)), 0)
+            rotate(0deg);
+        }
+        100% {
+          transform: translate3d(0, calc(-1 * var(--animation-move)), 0)
+            rotate(135deg);
         }
       }
     </style>
   </head>
   <body>
-    <div class="frame">
-      <div class="center">
-        <div class="bar-container">
-          <div class="bar one"></div>
-          <div class="bar two"></div>
-          <div class="bar three"></div>
-          <div class="bar four"></div>
-        </div>
+    <div class="container">
+      <div class="bar-container">
+        <div class="bar one no-animation"></div>
+        <div class="bar two no-animation"></div>
+        <div class="bar three no-animation"></div>
       </div>
     </div>
+
     <script>
       const barContainer = document.querySelector(".bar-container");
-      const barOneContainer = document.querySelector(".bar.one");
-      const barTwoContainer = document.querySelector(".bar.two");
-      const barThreeContainer = document.querySelector(".bar.three");
-      const barFourContainer = document.querySelector(".bar.four");
-      barContainer.addEventListener("click", (e) => {
-        barOneContainer.classList.add("fromTopToBottom");
-        barThreeContainer.classList.add("fromBottomToTop");
-        barTwoContainer.classList.add("rotate45Deg");
-
-        setTimeout(() => {
-          barFourContainer.style.display = "block";
-          barFourContainer.classList.add("rotate90Deg");
-        }, 2000);
+      const barOne = document.querySelector(".bar.one");
+      const barTwo = document.querySelector(".bar.two");
+      const barThree = document.querySelector(".bar.three");
+      const bars = document.querySelectorAll(".bar");
+      barContainer.addEventListener(
+        "click",
+        () => {
+          bars.forEach((bar) => {
+            bar.classList.remove("no-animation");
+          });
+        },
+        { once: true }
+      );
+      barContainer.addEventListener("click", () => {
+        barContainer.classList.toggle("active");
       });
     </script>
   </body>
