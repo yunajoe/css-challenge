@@ -8,4 +8,5 @@
 ### 참고한 웹 사이트들
 
 - https://100dayscss.com/
-- https://prismic.io/
+- https://www.awwwards.com/
+- https://www.csszengarden.com/pages/alldesigns/
